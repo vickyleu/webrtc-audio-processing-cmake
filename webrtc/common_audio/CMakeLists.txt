@@ -121,9 +121,10 @@ if (have_arm)
     endif ()
 endif ()
 
+LIST(APPEND COMMON_AUDIO_SRC "signal_processing/complex_bit_reverse.c")
+
 if (NOT have_arm)
     LIST(APPEND COMMON_AUDIO_SRC
-            "signal_processing/complex_bit_reverse.c"
             "signal_processing/filter_ar_fast_q12.c"
             )
 endif ()
