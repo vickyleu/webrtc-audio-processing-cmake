@@ -102,18 +102,14 @@ endif ()
 
 # 安装必要的absl静态库到相同目录
 install(FILES 
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_throw_delegate.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/numeric/libabsl_int128.a"
     "${CMAKE_BINARY_DIR}/abseil-cpp/absl/strings/libabsl_strings.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_base.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_raw_logging_internal.a"
     "${CMAKE_BINARY_DIR}/abseil-cpp/absl/strings/libabsl_strings_internal.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/types/libabsl_bad_optional_access.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_raw_logging_internal.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_throw_delegate.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_base.a"
     "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_log_severity.a"
     "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_spinlock_wait.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/numeric/libabsl_int128.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/types/libabsl_bad_optional_access.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/types/libabsl_bad_variant_access.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/types/libabsl_optional.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_dynamic_annotations.a"
-    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_malloc_internal.a"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
