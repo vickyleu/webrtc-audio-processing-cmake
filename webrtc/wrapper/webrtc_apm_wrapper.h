@@ -5,6 +5,8 @@
 #ifndef WEBRTC_APM_WRAPPER_H
 #define WEBRTC_APM_WRAPPER_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -71,6 +73,12 @@ typedef struct APMConfigLevelEstimation {
   bool enabled = false;
 } APMConfigLevelEstimation;
 
+// 新增：前置放大器（PreAmplifier）配置
+typedef struct APMConfigPreAmplifier {
+  bool enabled = false;
+  float fixed_gain_factor = 1.0f;  // 倍率，1.0 为 0 dB
+} APMConfigPreAmplifier;
+
 typedef struct APMConfig {
   APMConfigEchoCanceller echo_canceller;
   APMConfigNoiseSuppression noise_suppression;
@@ -80,6 +88,7 @@ typedef struct APMConfig {
   APMConfigTransientSuppression transient_suppression;
   APMConfigResidualEchoDetector residual_echo_detector;
   APMConfigLevelEstimation level_estimation;
+  APMConfigPreAmplifier pre_amplifier;
 } APMConfig;
 
 void *webrtc_apm_create();
@@ -104,6 +113,9 @@ bool webrtc_apm_voice_detected(void *apm);
 // 延迟补偿：调用前先估计近端采集帧与远端播放帧之间的延迟（毫秒）
 void webrtc_apm_set_stream_delay_ms(void *apm, int delay_ms);
 int  webrtc_apm_get_stream_delay_ms(void *apm);
+
+// 快捷开关 AEC (Echo Canceller)
+void webrtc_apm_enable_aec(void *apm, bool enable);
 
 #ifdef __cplusplus
 }

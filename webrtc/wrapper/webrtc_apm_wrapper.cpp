@@ -83,6 +83,10 @@ void webrtc_apm_apply_config(void *apm, const APMConfig *config) {
   // Level estimation
   cfg.level_estimation.enabled = config->level_estimation.enabled;
 
+  // Pre-amplifier
+  cfg.pre_amplifier.enabled = config->pre_amplifier.enabled;
+  cfg.pre_amplifier.fixed_gain_factor = config->pre_amplifier.fixed_gain_factor;
+
   handle->apm->ApplyConfig(cfg);
 }
 
@@ -148,6 +152,17 @@ int webrtc_apm_get_stream_delay_ms(void *apm) {
     return 0;
   }
   return handle->apm->stream_delay_ms();
+}
+
+// 便捷开关 AEC
+void webrtc_apm_enable_aec(void *apm, bool enable) {
+  auto* handle = static_cast<WebRTCApm*>(apm);
+  if (!handle) {
+    return;
+  }
+  auto cfg = handle->apm->GetConfig();
+  cfg.echo_canceller.enabled = enable;
+  handle->apm->ApplyConfig(cfg);
 }
 
 // 键盘/按键提示接口实现
