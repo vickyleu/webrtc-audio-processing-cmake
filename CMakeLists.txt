@@ -55,6 +55,11 @@ message(STATUS "have_arm: ${have_arm}")
 message(STATUS "have_armv7: ${have_armv7}")
 message(STATUS "have_arm64: ${have_arm64}")
 
+# 手动设置ARM架构标志
+if(NOT have_arm AND CMAKE_SYSTEM_PROCESSOR MATCHES "(arm)")
+    set(have_arm TRUE)
+endif()
+
 if (have_arm)
     add_definitions(-DWEBRTC_ARCH_ARM)
 endif ()
@@ -94,3 +99,15 @@ option(BUILD_EXAMPLE "Build example" OFF)
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_EXAMPLE)
     add_subdirectory(example)
 endif ()
+
+# 安装必要的absl静态库到相同目录
+install(FILES 
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_throw_delegate.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/strings/libabsl_strings.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_base.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_raw_logging_internal.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/strings/libabsl_strings_internal.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_log_severity.a"
+    "${CMAKE_BINARY_DIR}/abseil-cpp/absl/base/libabsl_spinlock_wait.a"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
