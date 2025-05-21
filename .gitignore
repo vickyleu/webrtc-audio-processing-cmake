@@ -2,6 +2,7 @@
 *.pc
 .*.swp
 *~
+.idea
 .deps*
 .dirstamp
 .libs*
