@@ -105,9 +105,6 @@ void webrtc_apm_apply_config(void *apm, const APMConfig *config) {
     // Pre-amplifier
     cfg.pre_amplifier.enabled = config->pre_amplifier.enabled;
     cfg.pre_amplifier.fixed_gain_factor = config->pre_amplifier.fixed_gain_factor;
-    cfg.capture_post_processor
-
-
 
     handle->apm->ApplyConfig(cfg);
 }
