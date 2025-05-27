@@ -74,23 +74,21 @@ void webrtc_apm_apply_config(void *apm, const APMConfig *config) {
     cfg.gain_controller1.compression_gain_db = config->gain_controller.compression_gain_db;
     cfg.gain_controller1.enable_limiter = config->gain_controller.enable_limiter;
 
-    // Gain controller 2 (modern AGC) - 新增
+    // Gain controller 2 (modern AGC) - 新增，兼容性处理
     cfg.gain_controller2.enabled = config->gain_controller2.enabled;
     cfg.gain_controller2.adaptive_digital.enabled = config->gain_controller2.adaptive_digital.enabled;
-    cfg.gain_controller2.adaptive_digital.max_gain_db = config->gain_controller2.adaptive_digital.max_gain_db;
-    cfg.gain_controller2.adaptive_digital.initial_saturation_margin_db =
-            config->gain_controller2.adaptive_digital.initial_saturation_margin_db;
-    cfg.gain_controller2.adaptive_digital.extra_saturation_margin_db =
-            config->gain_controller2.adaptive_digital.extra_saturation_margin_db;
-    cfg.gain_controller2.adaptive_digital.gain_applier_adjacent_speech_frames_threshold =
-            config->gain_controller2.adaptive_digital.gain_applier_adjacent_speech_frames_threshold;
-    cfg.gain_controller2.adaptive_digital.max_gain_change_db_per_second =
-            config->gain_controller2.adaptive_digital.max_gain_change_db_per_second;
-    cfg.gain_controller2.adaptive_digital.max_output_noise_level_dbfs =
-            config->gain_controller2.adaptive_digital.max_output_noise_level_dbfs;
 
-    cfg.gain_controller2.fixed_digital.enabled = config->gain_controller2.fixed_digital.enabled;
+
+    cfg.gain_controller2.adaptive_digital.max_gain_db = 50.0f;
+    cfg.gain_controller2.adaptive_digital.initial_saturation_margin_db = 20.0f;
+    cfg.gain_controller2.adaptive_digital.extra_saturation_margin_db = 2;
+    cfg.gain_controller2.adaptive_digital.gain_applier_adjacent_speech_frames_threshold = 1.0f;
+    cfg.gain_controller2.adaptive_digital.max_gain_change_db_per_second = 3.0f;
+    cfg.gain_controller2.adaptive_digital.max_output_noise_level_dbfs = -50.0f;
+
+
     cfg.gain_controller2.fixed_digital.gain_db = config->gain_controller2.fixed_digital.gain_db;
+
 
     // Voice detection
     cfg.voice_detection.enabled = config->voice_detection.enabled;
@@ -107,12 +105,9 @@ void webrtc_apm_apply_config(void *apm, const APMConfig *config) {
     // Pre-amplifier
     cfg.pre_amplifier.enabled = config->pre_amplifier.enabled;
     cfg.pre_amplifier.fixed_gain_factor = config->pre_amplifier.fixed_gain_factor;
+    cfg.capture_post_processor
 
-    // Capture post processor - 新增
-    cfg.capture_post_processor.enabled = config->capture_post_processor.enabled;
 
-    // Render pre processor - 新增
-    cfg.render_pre_processor.enabled = config->render_pre_processor.enabled;
 
     handle->apm->ApplyConfig(cfg);
 }

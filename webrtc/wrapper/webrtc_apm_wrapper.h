@@ -53,23 +53,16 @@ typedef struct APMConfigGainController {
     bool enable_limiter = true;
 } APMConfigGainController;
 
-// 新增：AGC2配置（更先进的增益控制）
+// 新增：AGC2配置（更先进的增益控制）- 简化版本以兼容不同WebRTC版本
 typedef struct APMConfigGainController2 {
     bool enabled = false;
-    // 自适应数字增益控制
+    // 自适应数字增益控制 - 简化配置
     struct {
         bool enabled = true;
-        float max_gain_db = 50.0f;
-        float initial_saturation_margin_db = 20.0f;
-        int extra_saturation_margin_db = 2;
-        float gain_applier_adjacent_speech_frames_threshold = 1.0f;
-        float max_gain_change_db_per_second = 3.0f;
-        float max_output_noise_level_dbfs = -50.0f;
     } adaptive_digital;
 
-    // 固定数字增益控制
+    // 固定数字增益控制 - 简化配置
     struct {
-        bool enabled = false;
         float gain_db = 0.0f;
     } fixed_digital;
 } APMConfigGainController2;
@@ -100,16 +93,6 @@ typedef struct APMConfigPreAmplifier {
     float fixed_gain_factor = 1.0f;  // 倍率，1.0 为 0 dB
 } APMConfigPreAmplifier;
 
-// 新增：捕获后增益控制
-typedef struct APMConfigCapturePostProcessor {
-    bool enabled = false;
-} APMConfigCapturePostProcessor;
-
-// 新增：播放前增益控制
-typedef struct APMConfigRenderPreProcessor {
-    bool enabled = false;
-} APMConfigRenderPreProcessor;
-
 typedef struct APMConfig {
     APMConfigEchoCanceller echo_canceller;
     APMConfigNoiseSuppression noise_suppression;
@@ -121,8 +104,6 @@ typedef struct APMConfig {
     APMConfigResidualEchoDetector residual_echo_detector;
     APMConfigLevelEstimation level_estimation;
     APMConfigPreAmplifier pre_amplifier;
-    APMConfigCapturePostProcessor capture_post_processor;  // 新增
-    APMConfigRenderPreProcessor render_pre_processor;    // 新增
 } APMConfig;
 
 // 音频统计信息结构体
