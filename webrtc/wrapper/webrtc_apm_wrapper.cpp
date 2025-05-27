@@ -1141,7 +1141,7 @@ void webrtc_apm_optimize_for_far_field(void *apm, int enable) {
     if (enable) {
         // 远场优化配置
         config.noise_suppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kHigh;
-        config.gain_controller.target_level_dbfs = 6; // 更保守的增益
+        config.gain_controller1.target_level_dbfs = 6; // 更保守的增益
         config.high_pass_filter.enabled = true;
         config.transient_suppression.enabled = true;
         config.pre_amplifier.enabled = true;
@@ -1149,7 +1149,7 @@ void webrtc_apm_optimize_for_far_field(void *apm, int enable) {
     } else {
         // 恢复默认配置
         config.noise_suppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kModerate;
-        config.gain_controller.target_level_dbfs = 3;
+        config.gain_controller1.target_level_dbfs = 3;
         config.pre_amplifier.fixed_gain_factor = 1.0f;
     }
     
